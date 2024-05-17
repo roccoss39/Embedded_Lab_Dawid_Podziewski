@@ -1,74 +1,64 @@
-# Created by https://url.us.m.mimecastprotect.com/s/BRwvCZ6nRmC52vqN6Iz8CzN?domain=toptal.com
-# Edit at https://url.us.m.mimecastprotect.com/s/idUQC1wNDBuM5gAY4TGpAnN?domain=toptal.com
+# General IDE and OS files
+.DS_Store
+Thumbs.db
+*.log
 
-### Eclipse ###
-.metadata
-bin/
-tmp/
-*.tmp
+# STM32Cube generated files
+*.ioc
 *.bak
-*.swp
-*~.nib
-local.properties
-# .settings/
-.loadpath
-.recommenders
+*.launch
+*.uvoptx
+*.uvprojx
+*.optn
+*.dep
+*.lst
+*.crl
+*.out
+*.map
+*.sct
+*.srec
+*.elf
+*.bin
+*.hex
+*.log
+*.d
+*.a
+*.axf
+*.o
+*.d
 
-# External tool builders
-.externalToolBuilders/
+# Build directories
+/Project/Debug/
+/Project/Release/
+/build/
+/bin/
+/obj/
+/output/
+/build-stm32/
 
-# Locally stored "Eclipse launch configurations"
-# *.launch
+# Keil uVision
+*.bak
+*.uvguix.*
+*.uvopt.*
+*.uvproj.*
 
-# PyDev specific (Python IDE for Eclipse)
-*.pydevproject
+# IAR EWARM
+*.ewp
+*.ewd
+*.ewt
+*.eww
+*.ewd
+*.ewp
+*.ewl
+*.map
+*.lst
+*.bin
+*.out
 
-# CDT-specific (C/C++ Development Tooling)
-# .cproject
+# Atollic TrueSTUDIO
+/Debug/
+/Release/
 
-# CDT- autotools
-.autotools
-
-# Java annotation processor (APT)
-.factorypath
-
-# PDT-specific (PHP Development Tools)
-.buildpath
-
-# sbteclipse plugin
-.target
-
-# Tern plugin
-.tern-project
-
-# TeXlipse plugin
-.texlipse
-
-# STS (Spring Tool Suite)
-.springBeans
-
-# Code Recommenders
-.recommenders/
-
-# Annotation Processing
-.apt_generated/
-.apt_generated_test/
-
-# Scala IDE specific (Scala & Java development for Eclipse)
-.cache-main
-.scala_dependencies
-.worksheet
-
-# Uncomment this line if you wish to ignore the project description file.
-# Typically, this file would be tracked if it contains build/dependency configurations:
-#.project
-
-### Eclipse Patch ###
-# Spring Boot Tooling
-.sts4-cache/
-
-# End of https://url.us.m.mimecastprotect.com/s/BRwvCZ6nRmC52vqN6Iz8CzN?domain=toptal.com
-
-# Piotr Grala's ignored items
-Debug/
-Release/
+# SW4STM32
+/Debug/
+/Release/
