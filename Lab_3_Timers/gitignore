@@ -1,0 +1,64 @@
+# General IDE and OS files
+.DS_Store
+Thumbs.db
+*.log
+
+# STM32Cube generated files
+*.ioc
+*.bak
+*.launch
+*.uvoptx
+*.uvprojx
+*.optn
+*.dep
+*.lst
+*.crl
+*.out
+*.map
+*.sct
+*.srec
+*.elf
+*.bin
+*.hex
+*.log
+*.d
+*.a
+*.axf
+*.o
+*.d
+
+# Build directories
+/Debug/
+/Release/
+/build/
+/bin/
+/obj/
+/output/
+/build-stm32/
+
+# Keil uVision
+*.bak
+*.uvguix.*
+*.uvopt.*
+*.uvproj.*
+
+# IAR EWARM
+*.ewp
+*.ewd
+*.ewt
+*.eww
+*.ewd
+*.ewp
+*.ewl
+*.map
+*.lst
+*.bin
+*.out
+
+# Atollic TrueSTUDIO
+/Debug/
+/Release/
+
+# SW4STM32
+/Debug/
+/Release/
