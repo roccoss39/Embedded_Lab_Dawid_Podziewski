@@ -65,8 +65,6 @@ static void MX_ADC2_Init(void);
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
 
-
-
 	if (hadc->Instance == ADC1) {
 		uint16_t TemperatureADC;
 		float TVoltage;
