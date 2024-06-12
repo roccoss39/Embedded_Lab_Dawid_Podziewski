@@ -18,14 +18,11 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-
+#include "pca9685.h"
+#include "applications.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "pca9685.h"
-#include "stdbool.h"
-#include <stdio.h> // Include for snprintf
-#include <string.h> // Include for strlen
-#include <math.h> // Include for roundf
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -59,28 +56,6 @@ static void MX_I2C1_Init(void);
 static void MX_USART3_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-	if (huart->Instance == USART3) {
-		UART_Received = true;
-	}
-}
-
-static void displayMenu()
-{
-	static char message[] = "***PCA9685 MENU***\n\r"
-			"1. Turn on leds\n\r"
-			"2. Turn off 1eds\n\r"
-			"3. Set duty cycle to 25%\n\r"
-			"4. Set duty cycle to 50%\n\r"
-			"5. Set duty cycle  to 75%\n\r"
-			"6. Sleep mode on\n\r"
-			"7. Sleep mode off\n\r"
-			"8. Set frequency to 24Hz\n\r"
-			"9. Set frequency to 1500Hz\n\r";
-
-	HAL_UART_Transmit(&huart3, (uint8_t*) message, strlen(message), 100);
-
-}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -119,77 +94,18 @@ int main(void) {
 	MX_I2C1_Init();
 	MX_USART3_UART_Init();
 	/* USER CODE BEGIN 2 */
-
 	displayMenu();
-
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
-
-	uint8_t rcvBuf[1];
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
-	HAL_UART_Receive_IT(&huart3, rcvBuf, 1);
+	HAL_UART_Receive_IT(&huart3, (uint8_t*) get_rxBuffer(), 1);
 	/* USER CODE END 2 */
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
 	while (1) {
-
-		if (UART_Received) {
-			switch (rcvBuf[0]) {
-
-			case '1':
-				PCA9685_enableAllLEDs();
-				printMsg("All LEDs have been turned on.\r", rcvBuf[0]);
-				break;
-			case '2':
-				PCA9685_disableAllLEDs();
-				printMsg("All LEDs have been turned off.\r", rcvBuf[0]);
-				break;
-			case '3':
-				PCA9685_setLedsPWM(1024);
-				printMsg("PWM set to 25% duty cycle.\r", rcvBuf[0]);
-				break;
-			case '4':
-				PCA9685_setLedsPWM(2048);
-				printMsg("PWM set to 50% duty cycle.\r", rcvBuf[0]);
-				break;
-			case '5':
-				PCA9685_setLedsPWM(3072);
-				printMsg("PWM set to 75% duty cycle.\r", rcvBuf[0]);
-				break;
-			case '6':
-				PCA9685_sleep(&hi2c1);
-				printMsg("PCA9685 in sleeping mode.\r", rcvBuf[0]);
-				break;
-			case '7':
-				PCA9685_wakeUp(&hi2c1);
-				printMsg("PCA9685 active.\r", rcvBuf[0]);
-				break;
-			case '8':
-				PCA9685_setLedsFrequency(24);
-				if (sleepMode)
-					printMsg("Leds frequency set to 24Hz.\r", rcvBuf[0]);
-				else
-					printMsg("Not possible to change freq in active mode.\r",
-							rcvBuf[0]);
-				break;
-			case '9':
-				PCA9685_setLedsFrequency(1500);
-				if (sleepMode)
-					printMsg("Leds frequency set to 1500Hz.\r", rcvBuf[0]);
-				else
-					printMsg("Not possible to change freq in active mode.\r",
-							rcvBuf[0]);
-				break;
-			default:
-				HAL_UART_Transmit(&huart3, (uint8_t*) "Invalid choice.\r", 14,
-						100);
-				break;
-			}
-			UART_Received = false;
-			HAL_UART_Receive_IT(&huart3, rcvBuf, 1);
-		}
+		operationsHandler();
 
 		/* USER CODE END WHILE */
 

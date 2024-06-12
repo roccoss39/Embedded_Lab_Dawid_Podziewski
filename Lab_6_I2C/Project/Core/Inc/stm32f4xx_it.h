@@ -27,7 +27,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdbool.h>
+ extern UART_HandleTypeDef huart3;
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -57,7 +58,9 @@ void PendSV_Handler(void);
 void SysTick_Handler(void);
 void USART3_IRQHandler(void);
 /* USER CODE BEGIN EFP */
-
+char* get_rxBuffer(void);
+bool get_rxCompleteFlag();
+void set_rxCompleteFlag(bool);
 /* USER CODE END EFP */
 
 #ifdef __cplusplus
