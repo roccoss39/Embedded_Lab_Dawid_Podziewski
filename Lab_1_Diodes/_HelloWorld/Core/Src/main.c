@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "application.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -42,7 +42,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint16_t pins[] = {GPIO_PIN_12, GPIO_PIN_13, GPIO_PIN_14, GPIO_PIN_15};
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -94,24 +94,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  for (int i = 0; i < 4; i++) {
-	              HAL_GPIO_WritePin(GPIOD, pins[i], GPIO_PIN_SET);
-	              HAL_Delay(500);
-	              HAL_GPIO_WritePin(GPIOD, pins[i], GPIO_PIN_RESET);
-	  }
 
-	  for (int j = 0; j < 4; j++)
-	  {
-	  for (int i = 0; i < 4; i++) {
-	              HAL_GPIO_WritePin(GPIOD, pins[i], GPIO_PIN_SET);
-	  }
-      HAL_Delay(200);
-	  for (int i = 0; i < 4; i++) {
-	              HAL_GPIO_WritePin(GPIOD, pins[i], GPIO_PIN_RESET);
-	  }
-      HAL_Delay(200);
-	  }
-
+	  led_operation();
 
     /* USER CODE END WHILE */
 
