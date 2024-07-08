@@ -18,12 +18,10 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
-#include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdbool.h>
-#include "globals.h"
+#include <app.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -206,20 +204,13 @@ void EXTI9_5_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI9_5_IRQn 0 */
 
-	if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_6)) {
-		if (++currentScheme > 2)
-			currentScheme = 0;
-		buttonPressed = true;
-	} else if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_8)) {
-		if (--currentScheme < 0)
-			currentScheme = 2;
-		buttonPressed = true;
-	} else if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_9)) {
-		if (delayTime > 50000)
-			delayTime -= 50000;
-	}
-
-
+	 if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_6)) {
+	      EXTI_Callback(GPIO_PIN_6);
+	  } else if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_8)) {
+	      EXTI_Callback(GPIO_PIN_8);
+	  } else if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_9)) {
+	      EXTI_Callback(GPIO_PIN_9);
+	  }
 
   /* USER CODE END EXTI9_5_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_6);
@@ -235,17 +226,15 @@ void EXTI9_5_IRQHandler(void)
   */
 void EXTI15_10_IRQHandler(void)
 {
-  /* USER CODE BEGIN EXTI15_10_IRQn 0 */
-	if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_15))
-	{
-		isActivated = !isActivated;
-		buttonPressed = true;
-	}
-	else if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_11)) {
-		if (delayTime < 4000000)
-			delayTime += 50000;
-	}
-  /* USER CODE END EXTI15_10_IRQn 0 */
+    /* USER CODE BEGIN EXTI15_10_IRQn 0 */
+	   /* USER CODE BEGIN EXTI15_10_IRQn 0 */
+	    if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_15)) {
+	        EXTI_Callback(GPIO_PIN_15);
+	    } else if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_11)) {
+	        EXTI_Callback(GPIO_PIN_11);
+	    }
+	    /* USER CODE END EXTI15_10_IRQn 0 */
+    /* USER CODE END EXTI15_10_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_11);
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_15);
   /* USER CODE BEGIN EXTI15_10_IRQn 1 */

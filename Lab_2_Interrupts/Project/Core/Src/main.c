@@ -22,8 +22,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
-#include <stdbool.h>
-#include "globals.h"
+#include "app.h"
 
 /* USER CODE END Includes */
 
@@ -35,10 +34,7 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 
-#define LED_1 GPIO_PIN_12
-#define LED_2 GPIO_PIN_13
-#define LED_3 GPIO_PIN_14
-#define LED_4 GPIO_PIN_15
+
 
 /* USER CODE END PD */
 
@@ -51,13 +47,7 @@
 
 /* USER CODE BEGIN PV */
 
-volatile int currentScheme = 0;
-uint16_t arrLeds[] = { LED_1, LED_2, LED_3, LED_4 };
-uint16_t numOfLEDs = sizeof(arrLeds) / sizeof(arrLeds[0]);
-uint16_t lastLed = 0;
-unsigned int delayTime = 1000000;
-bool isActivated = false;
-bool buttonPressed = false;
+
 
 /* USER CODE END PV */
 
@@ -70,75 +60,6 @@ static void MX_GPIO_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
-void myDelay() {
-	for (int i = 0; i < delayTime; i++) {
-		continue;
-	}
-}
-
-void turnOffBlinking() {
-	for (int i = 0; i < numOfLEDs; ++i) {
-		HAL_GPIO_WritePin(GPIOD, arrLeds[i], GPIO_PIN_RESET);
-	}
-}
-
-void blinkingRight() {
-	for (int i = lastLed; i < numOfLEDs; ++i) {
-
-		HAL_GPIO_WritePin(GPIOD, arrLeds[i], GPIO_PIN_SET);
-
-		if (!buttonPressed && isActivated)
-			myDelay();
-
-		HAL_GPIO_WritePin(GPIOD, arrLeds[i], GPIO_PIN_RESET);
-
-		if (buttonPressed || !isActivated) {
-			buttonPressed = false;
-			break;
-		}
-		lastLed = (i == 3) ? 0 : i;
-	}
-}
-
-void blinkingLeft() {
-	for (int i = lastLed; i >= 0; --i) {
-
-		HAL_GPIO_WritePin(GPIOD, arrLeds[i], GPIO_PIN_SET);
-
-		if (!buttonPressed && isActivated)
-			myDelay();
-
-		HAL_GPIO_WritePin(GPIOD, arrLeds[i], GPIO_PIN_RESET);
-
-		if (buttonPressed || !isActivated) {
-			buttonPressed = false;
-			break;
-		}
-		lastLed = (i == 0) ? 3 : i;
-	}
-}
-
-void blinking() {
-	for (int i = 0; i < numOfLEDs; i++) {
-		HAL_GPIO_WritePin(GPIOD, arrLeds[i], GPIO_PIN_SET);
-	}
-
-	if (!buttonPressed && isActivated)
-		myDelay();
-	else
-		buttonPressed = false;
-
-	for (int i = 0; i < numOfLEDs; i++) {
-		HAL_GPIO_WritePin(GPIOD, arrLeds[i], GPIO_PIN_RESET);
-	}
-
-	if (!buttonPressed && isActivated)
-		myDelay();
-
-	if (buttonPressed || !isActivated)
-		buttonPressed = false;
-}
 
 /* USER CODE END 0 */
 
@@ -177,30 +98,7 @@ int main(void) {
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
 	while (1) {
-
-		if (isActivated) {
-			switch (currentScheme) {
-			case 0:
-				blinkingRight();
-				break;
-			case 1:
-				blinkingLeft();
-				break;
-			case 2:
-				blinking();
-				break;
-			default:
-				break;
-
-			}
-		} else {
-			if (buttonPressed)
-			{
-			turnOffBlinking();
-			buttonPressed = false;
-			}
-			HAL_Delay(500);
-		}
+		operations();
 
 		/* USER CODE END WHILE */
 

@@ -1,9 +1,0 @@
-../Core/Src/main.c:74:6:myDelay	2
-../Core/Src/main.c:80:6:turnOffBlinking	2
-../Core/Src/main.c:86:6:blinkingRight	7
-../Core/Src/main.c:104:6:blinkingLeft	7
-../Core/Src/main.c:122:6:blinking	9
-../Core/Src/main.c:149:5:main	7
-../Core/Src/main.c:216:6:SystemClock_Config	3
-../Core/Src/main.c:255:13:MX_GPIO_Init	1
-../Core/Src/main.c:308:6:Error_Handler	1
